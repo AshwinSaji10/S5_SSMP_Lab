@@ -133,8 +133,33 @@ void main()
     fprintf(f5,"%d",locctr-start);
     fclose(f5);
     //printf("\nThe length of the code = %d\n",length);
-    display();
-      
+    display();    
 }
+
+/*Input.txt
+COPY		START 	1000
+START 	LDA		ALPHA
+- 		ADD		ONE
+- 		SUB 		TWO
+- 		+STA 		BETA
+- 		RSUB 	-
+ALPHA	BYTE		C'HELLO
+ONE		RESB		2
+TWO		WORD	5
+BETA		RESW	1
+- 		END		START
+*/
+
+/*Optab.txt
+LDA	00
+STA	0C
+ADD	18
+SUB	1C
+RSUB	4C
+*/
+
+
+
+
 
 
