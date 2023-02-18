@@ -1,44 +1,16 @@
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
-void display()
+void display(char filename[20])
 {
-	FILE *fsym,*fin,*flen;
-	char addr[20],label[20],opcode[20],operand[20];
-	char sym[20],symaddr[20];
-	char len[20];
-	
-	//display intermediate file
-	fin=fopen("intermediate.txt","r");
-	fscanf(fin,"%s %s %s",label,opcode,operand);
-	printf("intermediate file:\n");
-	printf("\t%s\t%s\t%s\n",label,opcode,operand);//print first line in intermediate file(no address)
-	fscanf(fin,"%s %s %s %s",addr,label,opcode,operand);
-	while(!feof(fin))
+	FILE *fp;
+	char c;
+	fp=fopen(filename,"r");
+	while((c=fgetc(fp))!=EOF)
 	{
-		printf("%s\t%s\t%s\t%s\n",addr,label,opcode,operand);
-		fscanf(fin,"%s %s %s %s",addr,label,opcode,operand);
+		printf("%c",c);
 	}
-	fclose(fin);
-	
-	//display symtab
-	fsym=fopen("symtab.txt","r");
-	printf("\nSymtab:\n");
-	fscanf(fsym,"%s %s",sym,symaddr);
-	while(!feof(fsym))
-	{
-		printf("%s\t%s\n",sym,symaddr);
-		fscanf(fsym,"%s %s",sym,symaddr);
-	}
-	fclose(fsym);
-	
-	//display length file
-	flen=fopen("length.txt","r");
-	printf("\nLength:\n");
-	fscanf(flen,"%s",len);
-	printf("%s",len);
-	fclose(flen);
-	
+	fclose(fp);
 }
 void main()
 {
@@ -134,7 +106,13 @@ void main()
 	fclose(flen);
 	fclose(fip);
 	fclose(fin);
-	display();//display the file contents
+	//display file contents
+	printf("intermediate file:\n");
+	display("intermediate.txt");
+	printf("\nsymtab:\n");
+	display("symtab.txt");
+	printf("\nlength:\n");
+	display("length.txt");
 }
 
 /*Input.txt
